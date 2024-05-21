@@ -18,7 +18,7 @@ async function sendEmail(email, text)
         <div class="container">
             <h2>Welcome to CvMaker!</h2>
             <p>Thank you for signing up. Please confirm your email address to activate your account.</p>
-            <a href="http://localhost:5000/auth/confirm/:${encodeURIComponent(text)}" class="button">Confirm Email</a>
+            <a href="https://cvmaker-server-demo.onrender.com/auth/confirm/:${encodeURIComponent(text)}" class="button">Confirm Email</a>
             <p>This link will expire in 1 hour.</p>
         </div>
     </body>
@@ -118,7 +118,7 @@ async function sendPasswordResetEmail(email, text)
         <div class="container">
             <h2>Reset Password</h2>
             <p>Click the link below to reset your password.</p>
-            <a href="http://localhost:5000/auth/reset/:${encodeURIComponent(text)}" class="button">Reset Password</a>
+            <a href="https://cvmaker-server-demo.onrender.com/auth/reset/:${encodeURIComponent(text)}" class="button">Reset Password</a>
             <p>This link will expire in 1 hour.</p>
         </div>
     </body>

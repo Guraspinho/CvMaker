@@ -60,16 +60,6 @@ const resumeSchema = new mongoose.Schema(
                 link: String,
             },
         ],
-        workVisibility:
-        {
-            type: Boolean,
-            default: true,
-        },
-        educationVisibility:
-        {
-            type: Boolean,
-            default: true,
-        },
         photoURL:
         {
             type: String,
@@ -79,6 +69,16 @@ const resumeSchema = new mongoose.Schema(
         {
             type: String,
             default: 'default.jpg',
+        },
+        visibility:
+        {
+            photo: {type: Boolean, default: false},
+            personalDetails: {type: Boolean, default: false},
+            workExperience: {type: Boolean, default: false},
+            education: {type: Boolean, default: false},
+            links: {type: Boolean, default: false},
+            certifications: {type: Boolean, default: false},
+            projects: {type: Boolean, default: false},
         }, 
         skills: [String],
         languages: [String],

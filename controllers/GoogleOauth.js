@@ -27,7 +27,7 @@ const sendRequest = asyncWrapper(async (req, res) =>
     
 
     // This is the URL that the user will be redirected to after they have successfully authenticated with Google.
-    const redirectUrl = 'http://localhost:5000/oauth/google/response'; 
+    const redirectUrl = 'hhttps://cvmaker-server-demo.onrender.com/oauth/google/response'; 
     let authorizationUrl;
 
     const client = new OAuth2Client(
@@ -62,7 +62,7 @@ const getTokens = asyncWrapper(async (req, res) =>
     // sanitize user input
     code = xssFilters.inHTMLData(code);
 
-    const redirectUrl = 'http://localhost:5000/oauth/google/response';
+    const redirectUrl = 'https://cvmaker-server-demo.onrender.com/oauth/google/response';
     const client = new OAuth2Client(
         process.env.GOOGLE_CLIENT_ID,
         process.env.GOOGLE_CLIENT_SECRET,

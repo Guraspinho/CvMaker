@@ -73,8 +73,11 @@ const resumeSchema = new mongoose.Schema(
         visibility:
         {
             photo: {type: Boolean, default: false},
-            personalDetails: {type: Boolean, default: false},
+            address: {type: Boolean, default: false},
+            email: {type: Boolean, default: false},
+            phone: {type: Boolean, default: false},
             workExperience: {type: Boolean, default: false},
+            summary: {type: Boolean, default: false},
             education: {type: Boolean, default: false},
             links: {type: Boolean, default: false},
             certifications: {type: Boolean, default: false},

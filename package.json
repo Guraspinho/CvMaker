@@ -4,7 +4,7 @@
   "description": "",
   "main": "afterlife.js",
   "scripts": {
-    "start": "node afterlife.js"
+    "start": "nodemon afterlife.js"
   },
   "keywords": [],
   "author": "Irakli",
@@ -14,6 +14,7 @@
     "@aws-sdk/s3-request-presigner": "^3.567.0",
     "aws-sdk": "^2.1611.0",
     "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "dotenv": "^16.4.2",

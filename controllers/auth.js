@@ -1,10 +1,11 @@
 const {UnauthenticatedError, BadRequestError, NotFoundError} = require("../errors/everyError");
 const { getSignedUrls } = require('../utils/multer');
 const { sendEmail, sendContactEmail, sendPasswordResetEmail } = require("../utils/nodeMailer");
+const { StatusCodes } = require("http-status-codes");
 const User = require("../models/users");
 const Oauth = require("../models/Oauth");
-const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const xssFilters = require('xss-filters');
 const resumes = require("../models/resumes");
@@ -230,17 +231,17 @@ const forgotPassword = asyncWrapper(async (req, res) =>
 const getPasswordResetPage = asyncWrapper(async (req, res) =>
 {
     let { id } = req.params;
-    res.status(StatusCodes.OK).json({ msg: "Please reset your password" , id});
+    id = xssFilters.inHTMLData(id);
+    id.substring(1);
+
+    res.cookie('token', token, { httpOnly: true });
+
+    res.status(StatusCodes.OK).redirect("https://cvmaker-frontend.onrender.com/en/signin");
 }); 
 
 const changePassword = asyncWrapper(async (req, res) =>
 {
-    let { id } = req.params;
-
-    // sanitize user input
-    id = xssFilters.inHTMLData(id);
-
-    const token = id.substring(1);
+    const token = req.cookies.token;
 
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = { userId: payload.userID, username: payload.username };
@@ -304,3 +305,50 @@ module.exports =
     getPasswordResetPage
 };
 
+// getPasswordResetPage
+
+// app.get('/confirm-email', (req, res) => {
+//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
+//     res.cookie('token', token, { httpOnly: true });
+//     res.send('Email confirmed');
+// });
+
+// changepassword controller
+
+// app.get('/confirm-email', (req, res) => {
+//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
+//     res.cookie('token', token, { httpOnly: true });
+//     res.send('Email confirmed');
+// });
+
+
+
+
+
+// const express = require('express');
+// const cookieParser = require('cookie-parser');
+// const jwt = require('jsonwebtoken');
+
+// const app = express();
+// app.use(cookieParser());
+
+// app.get('/confirm-email', (req, res) => {
+//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
+//     res.cookie('token', token, { httpOnly: true });
+//     res.send('Email confirmed');
+// });
+
+// app.get('/protected-route', (req, res) => {
+//     const token = req.cookies.token;
+//     if (!token) {
+//         return res.status(403).send('Not authorized');
+//     }
+//     jwt.verify(token, 'secret', (err, user) => {
+//         if (err) {
+//             return res.status(403).send('Not authorized');
+//         }
+//         res.send('You are authorized');
+//     });
+// });
+
+// app.listen(5000, () => console.log('Server started'));

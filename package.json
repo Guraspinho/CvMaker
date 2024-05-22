@@ -4,7 +4,7 @@
   "description": "",
   "main": "afterlife.js",
   "scripts": {
-    "start": "node afterlife.js"
+    "start": "nodemon afterlife.js"
   },
   "keywords": [],
   "author": "Irakli",

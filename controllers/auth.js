@@ -73,7 +73,7 @@ const confirmEmail = asyncWrapper(async (req, res) =>
     }
 
 
-    res.status(StatusCodes.ACCEPTED).json({ user: { msg: "email verification was suecessful" } });
+    res.status(StatusCodes.ACCEPTED).redirect("https://cvmaker-frontend.onrender.com/en/signin");
 });
 
 // resend email when signing up

@@ -13,6 +13,32 @@ async function sendEmail(email, text)
     <!DOCTYPE html>
     <html>
     <head>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            text-align: center;
+        }
+        .button {
+            background-color: lightblue;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -113,6 +139,32 @@ async function sendPasswordResetEmail(email, text)
     <!DOCTYPE html>
     <html>
     <head>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f4f4f4;
+            }
+            .container {
+                width: 80%;
+                margin: auto;
+                overflow: hidden;
+                text-align: center;
+            }
+            .button {
+                background-color: lightblue;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+    </style> 
     </head>
     <body>
         <div class="container">
@@ -162,63 +214,3 @@ module.exports =
     sendPasswordResetEmail
 }
 
-/* <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    text-align: center;
-}
-.button {
-    background-color: lightblue;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-</style> */
-
-
-
-
-
-
-
-
-{/* <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-.container {
-    width: 80%;
-    margin: auto;
-    overflow: hidden;
-    text-align: center;
-}
-.button {
-    background-color: lightblue;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-}
-</style> */}

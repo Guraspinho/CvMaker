@@ -243,6 +243,12 @@ const changePassword = asyncWrapper(async (req, res) =>
 {
     const token = req.cookies.token;
 
+    if (!token)
+    {
+        throw new BadRequestError("No token provided");
+    }
+        
+
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     req.user = { userId: payload.userID, username: payload.username };
     

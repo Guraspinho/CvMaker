@@ -232,11 +232,11 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 {
     let { id } = req.params;
     id = xssFilters.inHTMLData(id);
-    id.substring(1);
+    const token = id.substring(1);
 
     res.cookie('token', token, { httpOnly: true });
 
-    res.status(StatusCodes.OK).redirect("https://cvmaker-frontend.onrender.com/en/signin");
+    res.status(StatusCodes.OK).redirect("https://cvmaker-frontend.onrender.com/signin/reset/change-password");
 }); 
 
 const changePassword = asyncWrapper(async (req, res) =>
@@ -305,50 +305,3 @@ module.exports =
     getPasswordResetPage
 };
 
-// getPasswordResetPage
-
-// app.get('/confirm-email', (req, res) => {
-//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
-//     res.cookie('token', token, { httpOnly: true });
-//     res.send('Email confirmed');
-// });
-
-// changepassword controller
-
-// app.get('/confirm-email', (req, res) => {
-//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
-//     res.cookie('token', token, { httpOnly: true });
-//     res.send('Email confirmed');
-// });
-
-
-
-
-
-// const express = require('express');
-// const cookieParser = require('cookie-parser');
-// const jwt = require('jsonwebtoken');
-
-// const app = express();
-// app.use(cookieParser());
-
-// app.get('/confirm-email', (req, res) => {
-//     const token = jwt.sign({ userId: req.query.userId }, 'secret');
-//     res.cookie('token', token, { httpOnly: true });
-//     res.send('Email confirmed');
-// });
-
-// app.get('/protected-route', (req, res) => {
-//     const token = req.cookies.token;
-//     if (!token) {
-//         return res.status(403).send('Not authorized');
-//     }
-//     jwt.verify(token, 'secret', (err, user) => {
-//         if (err) {
-//             return res.status(403).send('Not authorized');
-//         }
-//         res.send('You are authorized');
-//     });
-// });
-
-// app.listen(5000, () => console.log('Server started'));

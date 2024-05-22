@@ -12,7 +12,7 @@ router.route('/resend').get(resendEmail);
 
 router.route('/forgotpassword').post(forgotPassword);
 router.route('/reset/:id').get(getPasswordResetPage);
-router.route('/changepassword/:id').post(changePassword);
+router.route('/changepassword').post(changePassword);
 
 
 

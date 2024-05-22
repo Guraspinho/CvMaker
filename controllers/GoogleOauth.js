@@ -19,7 +19,7 @@ async function getUserData(access_token)
 // sign in with google
 const sendRequest = asyncWrapper(async (req, res) =>
 {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'https://cvmaker-frontend.onrender.com/');
 
     // not necessary for a production server
     res.header('referrer-policy', 'no-referrer-when-downgrade'); // This is a security measure to prevent the browser from sending the referrer header to the server.
@@ -27,7 +27,7 @@ const sendRequest = asyncWrapper(async (req, res) =>
     
 
     // This is the URL that the user will be redirected to after they have successfully authenticated with Google.
-    const redirectUrl = 'hhttps://cvmaker-server-demo.onrender.com/oauth/google/response'; 
+    const redirectUrl = 'https://cvmaker-frontend.onrender.com'; 
     let authorizationUrl;
 
     const client = new OAuth2Client(
@@ -62,7 +62,7 @@ const getTokens = asyncWrapper(async (req, res) =>
     // sanitize user input
     code = xssFilters.inHTMLData(code);
 
-    const redirectUrl = 'https://cvmaker-server-demo.onrender.com/oauth/google/response';
+    const redirectUrl = 'https://cvmaker-frontend.onrender.com';
     const client = new OAuth2Client(
         process.env.GOOGLE_CLIENT_ID,
         process.env.GOOGLE_CLIENT_SECRET,
@@ -116,3 +116,8 @@ const getTokens = asyncWrapper(async (req, res) =>
 });
 
 module.exports = {sendRequest, getTokens};
+
+
+
+// i get back the access token and the user data from google
+// 

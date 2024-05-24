@@ -83,7 +83,7 @@ const resumeSchema = new mongoose.Schema(
             links: {type: Boolean, default: false},
             certifications: {type: Boolean, default: false},
             projects: {type: Boolean, default: false},
-            color: {type: string, default: ''},
+            color: {type: String, default: ''},
         }, 
         skills: [String],
         languages: [String],

@@ -19,7 +19,7 @@ async function getUserData(access_token)
 // sign in with google
 const sendRequest = asyncWrapper(async (req, res) =>
 {
-    res.header('Access-Control-Allow-Origin', 'https://cvmaker-frontend.onrender.com/');
+    res.header('Access-Control-Allow-Origin', 'https://cvmaker-frontend.onrender.com');
 
     // not necessary for a production server
     res.header('referrer-policy', 'no-referrer-when-downgrade'); // This is a security measure to prevent the browser from sending the referrer header to the server.

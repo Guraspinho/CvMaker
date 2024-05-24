@@ -1,4 +1,5 @@
 const { text } = require('express');
+const { string } = require('joi');
 const mongoose = require('mongoose');
 
 
@@ -82,6 +83,7 @@ const resumeSchema = new mongoose.Schema(
             links: {type: Boolean, default: false},
             certifications: {type: Boolean, default: false},
             projects: {type: Boolean, default: false},
+            color: {type: string, default: ''},
         }, 
         skills: [String],
         languages: [String],

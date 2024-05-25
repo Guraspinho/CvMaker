@@ -236,6 +236,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 
     res.cookie('token', token, { httpOnly: true });
 
+
     // res.cookie('token', token, { httpOnly: true });
     console.log('new cookie  ' +req.cookies.token);
 
@@ -244,8 +245,13 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 
 const changePassword = asyncWrapper(async (req, res) =>
 {
-    console.log('changepassword cookie '+req.cookies.token);
-    const token = req.cookies.token;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ') )
+    {
+        throw new BadRequestError("invalid token provided");
+    }
+
+    const token = authHeader.split(' ')[1];
     console.log('changepassword token '+token);
 
     if (!token)

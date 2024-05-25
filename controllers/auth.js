@@ -235,6 +235,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     const token = id.substring(1);
 
     res.cookie('token', token, { httpOnly: true });
+    console.log(token);
 
     res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
 }); 
@@ -242,6 +243,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 const changePassword = asyncWrapper(async (req, res) =>
 {
     const token = req.cookies.token;
+    console.log(token);
 
     if (!token)
     {

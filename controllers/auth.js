@@ -5,7 +5,6 @@ const { StatusCodes } = require("http-status-codes");
 const User = require("../models/users");
 const Oauth = require("../models/Oauth");
 const jwt = require("jsonwebtoken");
-const cookieParser = require("cookie-parser");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const xssFilters = require('xss-filters');
 const resumes = require("../models/resumes");
@@ -234,7 +233,9 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     id = xssFilters.inHTMLData(id);
     const token = id.substring(1);
 
-    res.cookie('token', token, { httpOnly: true });
+    res.cookie('token', token, { httpOnly: true, sameSite: 'none'});
+
+    // res.cookie('token', token, { httpOnly: true });
     console.log(token);
 
     res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
@@ -242,6 +243,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 
 const changePassword = asyncWrapper(async (req, res) =>
 {
+    console.log(req.cookies.token);
     const token = req.cookies.token;
     console.log(token);
 

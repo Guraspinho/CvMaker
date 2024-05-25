@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const mongoSanitize = require('express-mongo-sanitize');
 const hpp = require('hpp');
 const rateLimiter = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 // const csurf = require('csurf');
 
 // import routes
@@ -30,6 +31,8 @@ const morgan = require("morgan");
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
+
 
 // Security packages
 app.set("trust proxy", 1);

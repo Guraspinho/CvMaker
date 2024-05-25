@@ -232,21 +232,21 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     let { id } = req.params;
     id = xssFilters.inHTMLData(id);
     const token = id.substring(1);
-    console.log(token);
+    console.log('extracted from params: '+token);
 
     res.cookie('token', token, { httpOnly: true });
 
     // res.cookie('token', token, { httpOnly: true });
-    console.log(req.cookies.token);
+    console.log('new cookie  ' +req.cookies.token);
 
     res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
 }); 
 
 const changePassword = asyncWrapper(async (req, res) =>
 {
-    console.log(req.cookies.token);
+    console.log('changepassword cookie '+req.cookies.token);
     const token = req.cookies.token;
-    console.log(token);
+    console.log('changepassword token '+token);
 
     if (!token)
     {

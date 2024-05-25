@@ -236,7 +236,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 
     res.cookie('token', token, { httpOnly: true });
 
-    res.status(StatusCodes.OK).redirect("https://cvmaker-frontend.onrender.com/en/signin/reset/change-password");
+    res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
 }); 
 
 const changePassword = asyncWrapper(async (req, res) =>

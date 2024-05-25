@@ -233,7 +233,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     id = xssFilters.inHTMLData(id);
     const token = id.substring(1);
 
-    res.cookie('token', token, { httpOnly: true, sameSite: 'none'});
+    res.cookie('token', token, { httpOnly: true });
 
     // res.cookie('token', token, { httpOnly: true });
     console.log(token);

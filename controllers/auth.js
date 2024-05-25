@@ -232,11 +232,12 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     let { id } = req.params;
     id = xssFilters.inHTMLData(id);
     const token = id.substring(1);
+    console.log(token);
 
     res.cookie('token', token, { httpOnly: true });
 
     // res.cookie('token', token, { httpOnly: true });
-    console.log(token);
+    console.log(req.cookies.token);
 
     res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
 }); 

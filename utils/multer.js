@@ -32,9 +32,9 @@ const photoFilter = (req,file,cb) =>
     }
 }
 
-const photo = multer({ storage, photoFilter, limits: {fileSize: 2000000} }); // 2MB
+const photo = multer({ storage, photoFilter, limits: {fileSize: 4000000} }); // 4MB
 
-const upload = multer({ storage, fileFilter, limits: { fileSize: 10000000, files: 1 }}); // 10MB
+const upload = multer({ storage, fileFilter, limits: { fileSize: 4000000, files: 1 }}); // 4MB
 
 
 
@@ -49,6 +49,9 @@ const deleteCommand = (Key) =>
         }
     );
 }
+
+// for deleting multiple objects (files) from digitalocean spaces
+
 
 // for uploading an object (file) to digitalocean spaces
 

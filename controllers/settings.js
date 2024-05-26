@@ -91,7 +91,7 @@ const changeName = asyncWrapper(async (req,res) =>
     {
         // Users can only update their names once per week
     
-        if (userCredentials.lastNameChangedAt && (Date.now() - userCredentials.lastNameChangedAt < 7 ))
+        if (userCredentials.lastNameChangedAt && (Date.now() - userCredentials.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000));
         {
             throw new BadRequestError('You can only change your name once a week.');
         }
@@ -103,7 +103,7 @@ const changeName = asyncWrapper(async (req,res) =>
     {
         // Users can only update their names once per week
     
-        if (OauthUser.lastNameChangedAt && (Date.now() - OauthUser.lastNameChangedAt < 7 ))
+        if (OauthUser.lastNameChangedAt && (Date.now() - OauthUser.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000))
         {
             throw new BadRequestError('You can only change your name once a week.');
         }

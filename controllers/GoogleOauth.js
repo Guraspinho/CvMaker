@@ -16,7 +16,7 @@ async function getUserData(access_token)
     return data;
 }
 
-// sign in with google
+// when clicking sign in with google button
 const sendRequest = asyncWrapper(async (req, res) =>
 {
     res.header('Access-Control-Allow-Origin', 'https://cvmaker-frontend.onrender.com');

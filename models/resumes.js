@@ -15,18 +15,20 @@ const resumeSchema = new mongoose.Schema(
             phone: String,
             address: String,
             socialMediaLinks: String,
-            profession: String,
+            profession:
+            {
+                type: String,
+                default: 'Software Developer',
+            },
         },
         workExperience:
         [
-            
             {
                 jobTitle: String,
                 startDate: String,
                 endDate: String,
                 jobDescription: [ { descriptionText: {type: String} } ],
             },
- 
         ],
         education:
         [
@@ -51,6 +53,11 @@ const resumeSchema = new mongoose.Schema(
                 name: String,
                 organization: String,
                 date: Date,
+                email: 
+                {
+                    type: String,
+                    default: 'johndoe@gmail.com',
+                },
             },
         ],
         projects:
@@ -84,13 +91,28 @@ const resumeSchema = new mongoose.Schema(
             links: {type: Boolean, default: true},
             projects: {type: Boolean, default: true},
             skills: {type: Boolean, default: true},
-            skillsSection2: {type: Boolean, default: true},
+            // skillsSection2: {type: Boolean, default: true},
             languages: {type: Boolean, default: true},
             color: {type: String, default: ''},
         }, 
         skills: [String],
-        skillsSection2: [String],
-        languages: [String],
+        skillsSection2:
+        {
+            type: [String],
+
+            default:
+            [
+                {
+                    item: 'Social Media Marketing'
+                }
+            ],
+        },  
+        
+        languages:
+        [
+            
+        ],
+        languagesSection2: [String],
         pdfURL: String,
         summary: String
     },

@@ -141,9 +141,13 @@ const downloadResume = asyncWrapper(async (req,res) =>
     }
     const pdf = await convertToPdf(resume);
 
+    
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=CV.pdf');
+
     console.log(pdf);
 
-    res.status(StatusCodes.OK).json({user:{msg: 'Resume was downloaded successfully'}});
+    res.status(StatusCodes.OK).send(pdf);
 });
 
 

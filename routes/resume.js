@@ -9,7 +9,9 @@ const router = express.Router();
 router.route('/edit/:id').put(editResume);
 router.route('/delete/:id').delete(deleteResume);
 
-router.route('/download/:id').get(checkSubscription,downloadResume);
+
+// need to check for subsctiption also
+router.route('/download/:id').get(downloadResume);
 router.route('/:id').get(getSingleResume);
 router.route('/').get(yourResumes);
 

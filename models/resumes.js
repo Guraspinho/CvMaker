@@ -15,11 +15,7 @@ const resumeSchema = new mongoose.Schema(
             phone: String,
             address: String,
             socialMediaLinks: String,
-            profession:
-            {
-                type: String,
-                default: 'Software Developer',
-            },
+            profession: String,
         },
         workExperience:
         [
@@ -53,11 +49,8 @@ const resumeSchema = new mongoose.Schema(
                 name: String,
                 organization: String,
                 date: Date,
-                email: 
-                {
-                    type: String,
-                    default: 'johndoe@gmail.com',
-                },
+                email: String,
+                number: String,
             },
         ],
         projects:
@@ -96,18 +89,7 @@ const resumeSchema = new mongoose.Schema(
             color: {type: String, default: ''},
         }, 
         skills: [String],
-        skillsSection2:
-        {
-            type: [String],
-
-            default:
-            [
-                {
-                    item: 'Social Media Marketing'
-                }
-            ],
-        },  
-        
+        skillsSection2: [String], 
         languages:
         [
             
@@ -119,3 +101,11 @@ const resumeSchema = new mongoose.Schema(
     {timestamps: true});
 
 module.exports = mongoose.model('Resume', resumeSchema);
+
+
+
+
+
+// ცერტიფიცატიონ ტრანსფერ ტო string and add email and number
+
+// 

@@ -6,8 +6,7 @@ const pdf = require('pdf-parse');
 const mammoth = require('mammoth');
 const Resume = require('../models/resumes');
 const sanitizeResume = require('../middlewares/inputSanitizer');
-const {generateCV} = require('../utils/puppeteer');
-
+const {convertToPdf} = require('../utils/puppeteer');
 
 // Extract text from pdf or docx files
 
@@ -140,7 +139,9 @@ const downloadResume = asyncWrapper(async (req,res) =>
     {
         throw new NotFoundError(`Clould not find a resume with id ${req.params.id}`);
     }
+    const pdf = await convertToPdf(resume);
 
+    console.log(pdf);
 
     res.status(StatusCodes.OK).json({user:{msg: 'Resume was downloaded successfully'}});
 });

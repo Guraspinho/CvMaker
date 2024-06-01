@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 
-async function generateCV()
+async function convertToPdf(req,res)
 {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
@@ -17,6 +17,7 @@ async function generateCV()
         `
     );
 
+    console.log('page content set');
     const pdf = await page.pdf({format: 'A4'});
 
     await browser.close();
@@ -26,4 +27,4 @@ async function generateCV()
 }
 
 
-module.exports = {generateCV};
+module.exports = {convertToPdf};

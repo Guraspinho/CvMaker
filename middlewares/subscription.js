@@ -15,7 +15,7 @@ const checkSubscription = async (req, res, next) =>
     }
 
     // check if the user has a subscription plan
-    if(!user.subscriptionPlan)
+    if(!user.subscriptionPlanEpiresAt)
     {
         console.log(`User with ID ${req.user.userId} does not have a subscription plan`);
         throw new BadRequestError('You do not have a subscription plan');

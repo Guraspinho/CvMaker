@@ -14,7 +14,8 @@ const resumeSchema = new mongoose.Schema(
             email: String,
             phone: String,
             address: String,
-            socialMediaLinks: [String],
+            socialMediaLinks: String,
+            profession: String,
         },
         workExperience:
         [

@@ -95,13 +95,13 @@ const resumeSchema = new mongoose.Schema(
                singleSkill: String,
             }
         ], 
-        languages:
+        languages: [String],
+        languagesSection2:
         [
             {
                 singleLanguage: String,
             }
         ],
-        languagesSection2: [String],
         pdfURL: String,
         summary: String
     },

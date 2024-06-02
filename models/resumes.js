@@ -14,7 +14,7 @@ const resumeSchema = new mongoose.Schema(
             email: String,
             phone: String,
             address: String,
-            socialMediaLinks: String,
+            website: String,
             profession: String,
         },
         workExperience:
@@ -89,10 +89,17 @@ const resumeSchema = new mongoose.Schema(
             color: {type: String, default: ''},
         }, 
         skills: [String],
-        skillsSection2: [String], 
+        skillsSection2:
+        [
+            {
+               singleSkill: String,
+            }
+        ], 
         languages:
         [
-            
+            {
+                singleLanguage: String,
+            }
         ],
         languagesSection2: [String],
         pdfURL: String,
@@ -106,6 +113,6 @@ module.exports = mongoose.model('Resume', resumeSchema);
 
 
 
-// ცერტიფიცატიონ ტრანსფერ ტო string and add email and number
+// certification transfer to string and add email and number
 
 // 

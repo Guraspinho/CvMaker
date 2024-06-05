@@ -68,10 +68,10 @@ const sanitizeResume = (resume) => {
         skillsSection2: resume.skillsSection2 ? resume.skillsSection2.map(skill => ({
             singleSkill: skill.singleSkill ? xssFilters.inHTMLData(skill.singleSkill) : undefined
         })) : undefined,
-        languages: resume.languages ? resume.languages.map(lang => ({
+        languages: resume.languages ? resume.languages.map(lang => xssFilters.inHTMLData(lang)) : undefined,
+        languagesSection2: resume.languagesSection2 ? resume.languagesSection2.map(lang => ({
             singleLanguage: lang.singleLanguage ? xssFilters.inHTMLData(lang.singleLanguage) : undefined
         })) : undefined,
-        languagesSection2: resume.languagesSection2 ? resume.languagesSection2.map(lang => xssFilters.inHTMLData(lang)) : undefined,
         pdfURL: resume.pdfURL ? xssFilters.inHTMLData(resume.pdfURL) : undefined,
         summary: resume.summary ? xssFilters.inHTMLData(resume.summary) : undefined
     };

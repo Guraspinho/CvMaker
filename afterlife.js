@@ -3,6 +3,7 @@ const connectDB = require("./db/mongo");
 require("dotenv").config();
 require("express-async-errors");
 
+
 // import security packages
 const cors = require("cors");
 const helmet = require("helmet");
@@ -46,11 +47,12 @@ app.use(
 );
 
 app.use(cors({
-  origin: (origin, callback) => {
-    callback(null, true);
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE"],
+	origin: (origin, callback) =>
+    {
+    	callback(null, true);
+    },
+  	credentials: true,
+  	methods: ["GET", "POST", "PUT", "DELETE"],
 }));
 
 app.use(helmet());

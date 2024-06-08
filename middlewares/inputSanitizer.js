@@ -6,6 +6,7 @@ const sanitizeResume = (resume) => {
         createdBy: resume.createdBy ? xssFilters.inHTMLData(resume.createdBy.toString()) : undefined,
         personalDetails: resume.personalDetails ? {
             name: resume.personalDetails.name ? xssFilters.inHTMLData(resume.personalDetails.name) : undefined,
+            lastname: resume.personalDetails.lastname ? xssFilters.inHTMLData(resume.personalDetails.lastname) : undefined,
             email: resume.personalDetails.email ? xssFilters.inHTMLData(resume.personalDetails.email) : undefined,
             phone: resume.personalDetails.phone ? xssFilters.inHTMLData(resume.personalDetails.phone) : undefined,
             address: resume.personalDetails.address ? xssFilters.inHTMLData(resume.personalDetails.address) : undefined,
@@ -14,6 +15,7 @@ const sanitizeResume = (resume) => {
         } : undefined,
         workExperience: resume.workExperience ? resume.workExperience.map(exp => ({
             ...exp,
+            companyName: exp.companyName ? xssFilters.inHTMLData(exp.companyName) : undefined,
             jobTitle: exp.jobTitle ? xssFilters.inHTMLData(exp.jobTitle) : undefined,
             startDate: exp.startDate ? xssFilters.inHTMLData(exp.startDate) : undefined,
             endDate: exp.endDate ? xssFilters.inHTMLData(exp.endDate) : undefined,

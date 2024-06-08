@@ -11,6 +11,7 @@ const resumeSchema = new mongoose.Schema(
         personalDetails:
         {
             name: String,
+            lastname: String,
             email: String,
             phone: String,
             address: String,
@@ -20,6 +21,7 @@ const resumeSchema = new mongoose.Schema(
         workExperience:
         [
             {
+                companyName: String,
                 jobTitle: String,
                 startDate: String,
                 endDate: String,
@@ -84,7 +86,6 @@ const resumeSchema = new mongoose.Schema(
             links: {type: Boolean, default: true},
             projects: {type: Boolean, default: true},
             skills: {type: Boolean, default: true},
-            // skillsSection2: {type: Boolean, default: true},
             languages: {type: Boolean, default: true},
             color: {type: String, default: ''},
         }, 
@@ -110,9 +111,3 @@ const resumeSchema = new mongoose.Schema(
 module.exports = mongoose.model('Resume', resumeSchema);
 
 
-
-
-
-// certification transfer to string and add email and number
-
-// 

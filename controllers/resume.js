@@ -1,12 +1,16 @@
 const { BadRequestError, NotFoundError} = require("../errors/everyError");
 const {StatusCodes} = require('http-status-codes');
 const asyncWrapper = require('../middlewares/asyncWrapper');
-const {extractText}  = require('../middlewares/trimmer');
+
 const pdf = require('pdf-parse');
 const mammoth = require('mammoth');
+
 const Resume = require('../models/resumes');
+const User = require('../models/users');
+
 const sanitizeResume = require('../middlewares/inputSanitizer');
 const {convertToPdf} = require('../utils/puppeteer');
+const {extractText}  = require('../middlewares/resumeProcessing/trimmer');
 
 // Extract text from pdf or docx files
 
@@ -17,33 +21,36 @@ const uploadYourResume = asyncWrapper(async (req,res) =>
     {
         throw new BadRequestError('Please upload a file');
     }
-
+    
     const file = req.files[0];
-
+    
     let data;
-
+    
     // Extract text from the uploaded file
     if(file.mimetype === "application/pdf")
-    {
-        data = await pdf(file.buffer);
-        data = data.text;
-    }
-    else if(file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.mimetype === "application/msword")
-    {
-        const result = await mammoth.extractRawText({buffer: file.buffer});
+        {
+            data = await pdf(file.buffer);
+            data = data.text;
+            }
+            else if(file.mimetype === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.mimetype === "application/msword")
+                {
+                    const result = await mammoth.extractRawText({buffer: file.buffer});
         data = result.value;
     }
     const lowerCaseData = data.toLocaleLowerCase();
-
-    const info = extractText(lowerCaseData);
-    console.log(info);
-
-    res.status(StatusCodes.OK).json({user:{msg: 'Resume was uploaded successfully'}});
-});
-
-// Create a resume
-const createResume = asyncWrapper(async (req, res) => {
-    const data = req.body;
+    
+    const _id = req.user.userId;
+    const user = await User.findById({_id});
+    
+    const info = await extractText(lowerCaseData, user);
+    
+    
+    res.status(StatusCodes.OK).json({user:{msg: 'Resume was uploaded successfully'}, info});
+    });
+    
+    // Create a resume
+    const createResume = asyncWrapper(async (req, res) => {
+        const data = req.body;
 
     const sanitizedData = sanitizeResume(data);
 

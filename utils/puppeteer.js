@@ -13,14 +13,14 @@ async function convertToPdf(req,res)
 	try
 	{
 		// Construct absolute paths to the files
-		const htmlPath = path.join('utils/template1', 'index.html');
-		const cssPath = path.join('utils/template1', 'style.css');
-		const jsPath = path.join('utils/template1', 'script.js');
+		// const htmlPath = path.join('utils/templates/template1', 'index.html');
+		// const cssPath = path.join('utils/templates/template1', 'style.css');
+		// const jsPath = path.join('utils/template1', 'script.js');
 
 
 		// Read HTML, CSS, and JS files asynchronously
-		const htmlContent = await fs.readFile('utils//template1/index.html', 'utf8');
-		const cssContent = await fs.readFile('utils//template1/style.css', 'utf8');
+		const htmlContent = await fs.readFile('utils/templates/template1/index.html', 'utf8');
+		const cssContent = await fs.readFile('utils/templates/template1/style.css', 'utf8');
 		const jsContent = await fs.readFile('utils/templates/template1/script.js', 'utf8');
 			
 		const combinedContent = `

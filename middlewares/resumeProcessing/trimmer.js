@@ -202,10 +202,14 @@ async function extractText(resumeText, user)
             delete info['address'];
         }
     
-        Object.keys(info).forEach(key => {
-            if (typeof info[key] === 'object' && info[key] !== null) {
-                Object.keys(info[key]).forEach(subKey => {
-                    if (typeof info[key][subKey] === 'string') {
+        Object.keys(info).forEach(key =>
+        {
+            if (typeof info[key] === 'object' && info[key] !== null)
+            {
+                Object.keys(info[key]).forEach(subKey =>
+                {
+                    if (typeof info[key][subKey] === 'string')
+                    {
                         info[key][subKey] = info[key][subKey].trim();
                     }
                 });
@@ -213,11 +217,15 @@ async function extractText(resumeText, user)
         });
     
         const filteredInfo = {};
-        Object.keys(info).forEach(key => {
-            if (typeof info[key] === 'object') {
+        Object.keys(info).forEach(key =>
+        {
+            if (typeof info[key] === 'object')
+            {
                 filteredInfo[key] = {};
-                Object.keys(info[key]).forEach(subKey => {
-                    if (info[key][subKey] !== "") {
+                Object.keys(info[key]).forEach(subKey =>    
+                {
+                    if (info[key][subKey] !== "")
+                    {
                         filteredInfo[key][subKey] = info[key][subKey];
                     }
                 });

@@ -19,9 +19,9 @@ async function convertToPdf(req,res)
 
 
 		// Read HTML, CSS, and JS files asynchronously
-		const htmlContent = await fs.readFile('utils/templates/template1/index.html', 'utf8');
-		const cssContent = await fs.readFile('utils/templates/template1/style.css', 'utf8');
-		const jsContent = await fs.readFile('utils/templates/template1/script.js', 'utf8');
+		const htmlContent = await fs.readFile('utils/templates/template2/index.html', 'utf8');
+		const cssContent = await fs.readFile('utils/templates/template2/style.css', 'utf8');
+		const jsContent = await fs.readFile('utils/templates/template2/script2.js', 'utf8');
 			
 		const combinedContent = `
       <!DOCTYPE html>

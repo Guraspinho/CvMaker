@@ -8,6 +8,11 @@ const resumeSchema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User',
         },
+        resumeName:
+        {
+            type: String,
+            default: ""
+        },
         personalDetails:
         {
             name: String,

@@ -7,7 +7,7 @@ const Oauth = require("../models/Oauth");
 const jwt = require("jsonwebtoken");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const xssFilters = require('xss-filters');
-const resumes = require("../models/resumes");
+const Resumes = require("../models/resumes");
 
 const signup = asyncWrapper(async (req, res) =>
 {
@@ -154,7 +154,17 @@ const login = asyncWrapper(async (req, res) =>
 
 
     // sign the url to access photos
-    const keys = await resumes.find({ user: userCredentials._id });
+    const resumes = await Resumes.find({ createdBy: userCredentials._id });
+
+    let keys = [];
+    
+    resumes.forEach((resume) =>
+    {
+        if(resume.photoKey !== "default.jpg")
+        {
+            keys.push(resume.photoKey);
+        }
+    });
     const urls = await getSignedUrls(keys);
 
 
@@ -163,11 +173,6 @@ const login = asyncWrapper(async (req, res) =>
 
 });
 
-// logout
-const logout = asyncWrapper(async (req, res) =>
-{
-    res.status(StatusCodes.OK).json({ user: { msg: "Logged out suecessfully" } });
-});
 
 // contact us
 const contactUs = asyncWrapper(async (req, res) =>
@@ -314,7 +319,6 @@ module.exports =
     login,
     signup,
     confirmEmail,
-    logout,
     resendEmail,
     contactUs,
     forgotPassword,

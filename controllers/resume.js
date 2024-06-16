@@ -46,11 +46,12 @@ const uploadYourResume = asyncWrapper(async (req,res) =>
     
     
     res.status(StatusCodes.OK).json({user:{msg: 'Resume was uploaded successfully'}, info});
-    });
+});
     
-    // Create a resume
-    const createResume = asyncWrapper(async (req, res) => {
-        const data = req.body;
+// Create a resume
+const createResume = asyncWrapper(async (req, res) =>
+{
+    const data = req.body;
 
     const sanitizedData = sanitizeResume(data);
 
@@ -58,7 +59,8 @@ const uploadYourResume = asyncWrapper(async (req,res) =>
 
     const resume = await Resume.create(sanitizedData);
 
-    if (!resume) {
+    if (!resume)
+    {
         throw new BadRequestError('Could not create a resume');
     }
 
@@ -169,3 +171,6 @@ module.exports =
     getSingleResume,
     createResume,
 };
+
+// when the user clicks on the resume he/she wants to chose, the resume gets created automatically with the sample data,
+// and when adding things, it is just editing part not the creating one. i just need to see it in action 

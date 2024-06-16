@@ -45,14 +45,23 @@ const getPhoto = asyncWrapper(async (req,res) =>
 {
     const _id = req.params.id;
     const createdBy = req.user.userId;
+    let photoURL;
 
-    const {photoURL} = await Resume.findOne({_id, createdBy});
+    const resume = await Resume.findOne({_id, createdBy});
     
-    if(!photoURL)
+    if(!resume)
     {
-        throw new NotFoundError(`Could not find resumes with ID: ${_id}`);
+        throw new NotFoundError(`Could not find a resume with ID: ${_id}`);
     }
 
+    if(resume.photoURL)
+    {
+        photoURL = resume.photoURL;
+    }
+    else
+    {
+        throw new NotFoundError(`No photos to show`);
+    }
 
     res.status(StatusCodes.OK).json({user:{msg:'File was downloaded successfully'}, photoURL});
 

@@ -95,7 +95,7 @@ start();
 
 // before deployment
 
-TODO: 'update jwt lifetime later on'
+TODO: 'update jwt lifetime later on + '
 TODO: 'update CORS later on'
 TODO: 'update signed url lifetime later on'
 TODO: 'update name and surname change to once per week later on +'

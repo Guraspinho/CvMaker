@@ -49,7 +49,7 @@ const sendRequest = asyncWrapper(async (req, res) =>
         throw new UnauthenticatedError('Error generating auth URL');
     }
 
-    res.json({authorizationUrl});
+    res.status(StatusCodes.OK).json({authorizationUrl});
 });
 
 

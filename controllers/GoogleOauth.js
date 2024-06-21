@@ -25,9 +25,9 @@ const sendRequest = asyncWrapper(async (req, res) =>
     res.header('referrer-policy', 'no-referrer-when-downgrade'); // This is a security measure to prevent the browser from sending the referrer header to the server.
     
     
-
     // This is the URL that the user will be redirected to after they have successfully authenticated with Google.
-    const redirectUrl = 'https://cvmaker-frontend.onrender.com'; 
+    const redirectUrl = 'https://cvmaker-frontend.onrender.com';
+
     let authorizationUrl;
 
     const client = new OAuth2Client(
@@ -49,39 +49,43 @@ const sendRequest = asyncWrapper(async (req, res) =>
         throw new UnauthenticatedError('Error generating auth URL');
     }
 
-    res.json({authorizationUrl});
+    res.redirect(authorizationUrl);
 });
 
 
 
 // This function will be called after the user has successfully authenticated with Google.
 const getTokens = asyncWrapper(async (req, res) =>
-{
-    let code = req.query.code;
-
-    // sanitize user input
-    code = xssFilters.inHTMLData(code);
-
-    const redirectUrl = 'https://cvmaker-frontend.onrender.com';
-    const client = new OAuth2Client(
-        process.env.GOOGLE_CLIENT_ID,
-        process.env.GOOGLE_CLIENT_SECRET,
-        redirectUrl
-    );  
-    
-    try
     {
-        const googleResponse = await client.getToken(code);
-        await client.setCredentials(googleResponse.tokens);
-    }
-    catch (error)
-    {
-        throw new UnauthenticatedError('Invalid or expired token');
-    }
+        let code = req.query.code; // this code will actually come from frontend
 
-    const user = client.credentials;
+        // sanitize user input
+        code = xssFilters.inHTMLData(code);
 
-    let access_token = user.access_token;
+        // initialize the google oauth library
+        const redirectUrl = 'https://cvmaker-frontend.onrender.com';
+        const client = new OAuth2Client(
+            process.env.GOOGLE_CLIENT_ID,
+            process.env.GOOGLE_CLIENT_SECRET,
+            redirectUrl
+        );  
+        
+        // get authorization token from google (the one what contains user info).
+        try
+        {
+            const googleResponse = await client.getToken(code);
+            await client.setCredentials(googleResponse.tokens);
+        }
+        catch (error)
+        {
+            throw new UnauthenticatedError('Invalid or expired token');
+        }
+
+
+        // this part is for extracting email from a google token and creating jwt on it  
+        const user = client.credentials;
+
+        let access_token = user.access_token;
 
     // sanitize user input
     access_token = xssFilters.inHTMLData(access_token);
@@ -117,7 +121,3 @@ const getTokens = asyncWrapper(async (req, res) =>
 
 module.exports = {sendRequest, getTokens};
 
-
-
-// i get back the access token and the user data from google
-// 

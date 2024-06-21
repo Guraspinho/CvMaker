@@ -26,7 +26,7 @@ const sendRequest = asyncWrapper(async (req, res) =>
     
     
     // This is the URL that the user will be redirected to after they have successfully authenticated with Google.
-    const redirectUrl = 'https://cvmaker-frontend.onrender.com';
+    const redirectUrl = 'http://localhost:3000/en/test/';
 
     let authorizationUrl;
 
@@ -57,13 +57,20 @@ const sendRequest = asyncWrapper(async (req, res) =>
 // This function will be called after the user has successfully authenticated with Google.
 const getTokens = asyncWrapper(async (req, res) =>
     {
-        let code = req.query.code; // this code will actually come from frontend
+
+        // let code = req.query.code; 
+        let code = req.headers.authorization; // this code will come from frontend via authorization header
+
+        if(!code)
+        {
+            throw new UnauthenticatedError("Headers must include auth code");
+        }
 
         // sanitize user input
         code = xssFilters.inHTMLData(code);
 
         // initialize the google oauth library
-        const redirectUrl = 'https://cvmaker-frontend.onrender.com';
+        const redirectUrl = 'http://localhost:3000/en/test/';
         const client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID,
             process.env.GOOGLE_CLIENT_SECRET,

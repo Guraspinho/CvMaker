@@ -1,5 +1,5 @@
-# Use an official Node.js runtime as the base image
-FROM node:14
+# Import and use an official Node.js runtime as the base image
+FROM node:18-bullseye
 
 # Set the working directory in the container to /app
 WORKDIR /app

@@ -84,6 +84,8 @@ const s3Operation = async (Key, command) => {
     return { Key, response };
 }
 
+
+// function to sign the url's of resume photos
 const getSignedUrlFunction = async (Key) =>
 {
     const s3client = new S3Client({
@@ -100,7 +102,7 @@ const getSignedUrlFunction = async (Key) =>
         Key: Key
     });
 
-    const signedUrl = await getSignedUrl(s3client, command, { expiresIn: 3600 }); // URL expires in 1 hour
+    const signedUrl = await getSignedUrl(s3client, command, { expiresIn: 7200 }); // URL expires in 2 hour
     return signedUrl;
 }
 

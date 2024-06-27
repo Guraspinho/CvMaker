@@ -314,7 +314,7 @@ const changePassword = asyncWrapper(async (req, res) =>
 
 
 
-    res.status(StatusCodes.OK).redirect("https://cvmaker.ge/en/signin");
+    res.status(StatusCodes.OK).json({msg: "Password was updated successfully"});
 });
 
 

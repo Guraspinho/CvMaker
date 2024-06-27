@@ -249,7 +249,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     // res.cookie('token', token, { httpOnly: true });
     // console.log('new cookie  ' +req.cookies.token);
 
-    res.status(StatusCodes.OK).redirect("https://cvmaker.ge/en/signin/reset/change-password");
+    res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
 }); 
 
 const changePassword = asyncWrapper(async (req, res) =>

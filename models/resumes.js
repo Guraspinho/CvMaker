@@ -13,6 +13,12 @@ const resumeSchema = new mongoose.Schema(
             type: String,
             default: ""
         },
+        resumeLanguage:
+        {
+            type: String,
+            enum: ["en","ka"],
+            default: "en"
+        },
         personalDetails:
         {
             name: String,

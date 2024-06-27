@@ -236,7 +236,7 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 {
     if(!req.params.id)
     {
-        throw new NotFoundError("Something went wrong");
+        throw new NotFoundError("Something went wrong try again later");
     }
     let { id } = req.params;
     id = xssFilters.inHTMLData(id);
@@ -246,6 +246,8 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
     res.cookie('token', token, { httpOnly: true });
 
 
+    // res.cookie('token', token, { httpOnly: true });
+    // console.log('new cookie  ' +req.cookies.token);
 
     res.status(StatusCodes.OK).redirect("https://cvmaker.ge/en/signin/reset/change-password");
 }); 
@@ -253,20 +255,13 @@ const getPasswordResetPage = asyncWrapper(async (req, res) =>
 const changePassword = asyncWrapper(async (req, res) =>
 {
     const authHeader = req.headers.authorization;
-    console.log(authHeader);
-
-    if (!authHeader.startsWith('Bearer '))
+    if (!authHeader || !authHeader.startsWith('Bearer ') )
     {
         throw new BadRequestError("invalid token provided");
     }
 
     const token = authHeader.split(' ')[1];
-    if(!token)
-    {
-        throw new BadRequestError("Something went wrong, try again later");
-    }
-    
-    console.log('changepassword token '+ token);
+
 
     if (!token)
     {

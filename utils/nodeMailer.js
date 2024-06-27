@@ -165,7 +165,7 @@ async function sendPasswordResetEmail(email, text)
         <div class="container">
             <h2>Reset Password</h2>
             <p>Click the link below to reset your password.</p>
-            <a href="https://cvmaker-server-tkwqg.ondigitalocean.app/auth/reset/:${encodeURIComponent(text)}" class="button">Reset Password</a>
+            <a href="https://cvmaker.ge/auth/reset/:${encodeURIComponent(text)}" class="button">Reset Password</a>
             <p>This link will expire in 1 hour.</p>
         </div>
     </body>

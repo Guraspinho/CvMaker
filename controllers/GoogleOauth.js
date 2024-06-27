@@ -26,7 +26,7 @@ const sendRequest = asyncWrapper(async (req, res) =>
     
     
     // This is the URL that the user will be redirected to after they have successfully authenticated with Google.
-    const redirectUrl = "https://cvmaker.ge/callback/";
+    const redirectUrl = "https://cvmaker.ge/en/callback/call";
 
     let authorizationUrl;
 
@@ -70,7 +70,7 @@ const getTokens = asyncWrapper(async (req, res) =>
         code = xssFilters.inHTMLData(code);
 
         // initialize the google oauth library
-        const redirectUrl = 'https://cvmaker.ge/callback/';
+        const redirectUrl = 'https://cvmaker.ge/en/callback/call';
         const client = new OAuth2Client(
             process.env.GOOGLE_CLIENT_ID,
             process.env.GOOGLE_CLIENT_SECRET,

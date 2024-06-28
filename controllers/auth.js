@@ -73,7 +73,7 @@ const confirmEmail = asyncWrapper(async (req, res) =>
     }
 
 
-    res.status(StatusCodes.ACCEPTED).redirect("https://cvmaker-frontend.onrender.com/en/signin");
+    res.status(StatusCodes.ACCEPTED).redirect("https://cvmaker.ge/en/signin");
 });
 
 // resend email when signing up

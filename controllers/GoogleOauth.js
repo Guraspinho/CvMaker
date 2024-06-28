@@ -3,9 +3,12 @@ const {UnauthenticatedError, BadRequestError, NotFoundError} = require("../error
 const { StatusCodes } = require("http-status-codes");
 const asyncWrapper = require('../middlewares/asyncWrapper');
 const Oauth = require('../models/Oauth');
-const User = require("../models/users");
 const xssFilters = require('xss-filters');
 
+// import database models
+const User = require("../models/users");
+const Resumes = require("../models/resumes");
+const { getSignedUrls } = require("../utils/multer");
 
 async function getUserData(access_token)
 {
@@ -116,13 +119,28 @@ const getTokens = asyncWrapper(async (req, res) =>
     if(AlreadySignedup)
     {
         const token =  AlreadySignedup.createJWT();
-        res.status(StatusCodes.OK).json({user: { msg: "User signed in successfully" }, token});
+
+        // sign the url to access photos
+        const resumes = await Resumes.find({ createdBy: userCredentials._id });
+
+        let keys = [];
+        
+        resumes.forEach((resume) =>
+        {
+            if(resume.photoKey !== "default.jpg")
+            {
+                keys.push(resume.photoKey);
+            }
+        });
+        const urls = await getSignedUrls(keys);
+
+        res.status(StatusCodes.OK).json({msg: "User signed in successfully" , user: {name: given_name, surname: family_name, email}, urls, token});
     }
     else
     {
         const newUser = await Oauth.create({name: given_name, surname: family_name, email});
         const token = newUser.createJWT();
-        res.status(StatusCodes.CREATED).json({user:{ msg: "User signed up successfully" }, token});
+        res.status(StatusCodes.CREATED).json( {msg: "User signed up successfully" , user: {name: given_name, surname: family_name, email}, token});
     }
 });
 

@@ -2,11 +2,12 @@ const {UnauthenticatedError, BadRequestError, NotFoundError} = require("../error
 const { getSignedUrls } = require('../utils/multer');
 const { sendEmail, sendContactEmail, sendPasswordResetEmail } = require("../utils/nodeMailer");
 const { StatusCodes } = require("http-status-codes");
-const User = require("../models/users");
-const Oauth = require("../models/Oauth");
 const jwt = require("jsonwebtoken");
 const asyncWrapper = require("../middlewares/asyncWrapper");
 const xssFilters = require('xss-filters');
+
+const User = require("../models/users");
+const Oauth = require("../models/Oauth");
 const Resumes = require("../models/resumes");
 
 const signup = asyncWrapper(async (req, res) =>
@@ -151,7 +152,7 @@ const login = asyncWrapper(async (req, res) =>
 
     // set user status as logged in
     await User.findOneAndUpdate( { email }, { loggedIn: true }, { new: true, runValidators: true } );
-
+    TODO: "This needs to be removedi"
 
     // sign the url to access photos
     const resumes = await Resumes.find({ createdBy: userCredentials._id });
@@ -167,9 +168,10 @@ const login = asyncWrapper(async (req, res) =>
     });
     const urls = await getSignedUrls(keys);
 
-
+    // extract name and surname
+    const {name, surname} = userCredentials;
     // returns username and jwt
-    res.status(StatusCodes.CREATED).json( {user: { token }, urls});
+    res.status(StatusCodes.CREATED).json( {user: { name, surname, email }, urls, token});
 
 });
 

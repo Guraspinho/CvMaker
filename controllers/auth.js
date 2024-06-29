@@ -150,10 +150,7 @@ const login = asyncWrapper(async (req, res) =>
     }
     const token = userCredentials.createJWT();
 
-    // set user status as logged in
-    await User.findOneAndUpdate( { email }, { loggedIn: true }, { new: true, runValidators: true } );
-    TODO: "This needs to be removedi"
-
+   
     // sign the url to access photos
     const resumes = await Resumes.find({ createdBy: userCredentials._id });
 
@@ -205,6 +202,7 @@ const contactUs = asyncWrapper(async (req, res) =>
     res.status(StatusCodes.OK).json({ msg: "Message sent successfully" });
 });
 
+
 const forgotPassword = asyncWrapper(async (req, res) =>
 {
     let { email } = req.body;
@@ -234,26 +232,7 @@ const forgotPassword = asyncWrapper(async (req, res) =>
     res.status(StatusCodes.OK).json({ msg: "Password reset link was sent to email" });
 });
 
-const getPasswordResetPage = asyncWrapper(async (req, res) =>
-{
-    if(!req.params.id)
-    {
-        throw new NotFoundError("Something went wrong try again later");
-    }
-    let { id } = req.params;
-    id = xssFilters.inHTMLData(id);
-    const token = id.substring(1);
-    console.log('extracted from params: '+ token);   
-
-    res.cookie('token', token, { httpOnly: true });
-
-
-    // res.cookie('token', token, { httpOnly: true });
-    // console.log('new cookie  ' +req.cookies.token);
-
-    res.status(StatusCodes.OK).redirect("http://localhost:3000/en/signin/reset/change-password");
-}); 
-
+// the method for changing forgotten passwords of users
 const changePassword = asyncWrapper(async (req, res) =>
 {
     const authHeader = req.headers.authorization;

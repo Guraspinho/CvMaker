@@ -75,7 +75,7 @@ userSchema.methods.emailVerificationToken = function()
 // generate password reset token
 userSchema.methods.passwordResetToken = function()
 {
-    return jwt.sign({userID: this._id, userName: this.name, userSurname: this.surname}, process.env.JWT_SECRET, {expiresIn: process.env.RESET_PASSWORD_TOKEN_LIFETIM});
+    return jwt.sign({userID: this._id, userName: this.name, userSurname: this.surname}, process.env.JWT_SECRET, {expiresIn: process.env.RESET_PASSWORD_TOKEN_LIFETIME});
 }
 
 // encrypt the password

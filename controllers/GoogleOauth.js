@@ -106,22 +106,22 @@ const getTokens = asyncWrapper(async (req, res) =>
     const {given_name, family_name, email} = userData;
 
     // check if user with such email exists
-    const alreadyUser = await User.findOne({email});
+    const alreadyUser = await User.findOne({email}); // check if the user is in users collection
 
     if(alreadyUser)
     {
-        throw new BadRequestError("email already in use try a different one");
+        throw new BadRequestError("Email already in use try a different one");
     }
 
     // check if user with such email exists
-    const AlreadySignedup = await Oauth.findOne({email});
+    const AlreadySignedup = await Oauth.findOne({email}); // check if the user is in oauths collection
 
     if(AlreadySignedup)
     {
         const token =  AlreadySignedup.createJWT();
 
         // sign the url to access photos
-        const resumes = await Resumes.find({ createdBy: userCredentials._id });
+        const resumes = await Resumes.find({ createdBy: AlreadySignedup._id });
 
         let keys = [];
         

@@ -308,6 +308,5 @@ module.exports =
     contactUs,
     forgotPassword,
     changePassword,
-    getPasswordResetPage
 };
 

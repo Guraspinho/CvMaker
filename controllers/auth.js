@@ -7,7 +7,7 @@ const asyncWrapper = require("../middlewares/asyncWrapper");
 const xssFilters = require('xss-filters');
 
 const User = require("../models/users");
-const Oauth = require("../models/Oauth");
+const Oauth = require("../models/GoogleUsers");
 const Resumes = require("../models/resumes");
 
 const signup = asyncWrapper(async (req, res) =>

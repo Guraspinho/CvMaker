@@ -28,6 +28,11 @@ const OauthSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
+    newUser:
+    {
+        type: Boolean,
+        default: true
+    },
     subscriptionExpiresAt:
     {
         type: Date,

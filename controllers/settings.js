@@ -3,7 +3,7 @@ const User = require('../models/users');
 const Resume = require('../models/resumes');
 const {StatusCodes} = require('http-status-codes');
 const asyncWrapper = require('../middlewares/asyncWrapper');
-const Oauth = require('../models/Oauth');
+const Oauth = require('../models/GoogleUsers');
 const xssFilters = require('xss-filters');
 
 
@@ -61,22 +61,23 @@ const changePassword = asyncWrapper(async (req,res) =>
 // change name
 const changeName = asyncWrapper(async (req,res) =>
 {
+    // extract and filter the input data
     const newName = xssFilters.inHTMLData(req.body.newName);
     const _id = req.user.userId;
-    
-    
+
+    // check if the name is provided
     if(!newName)
     {
         throw new BadRequestError('Please provide a valid name');
     }
 
-    // check if the user is tryung to add the username that is the same as before
+    // check if the user is trying to add the username that is the same as before
     if(newName === req.user.userName)
     {
         throw new BadRequestError(`Your username is already ${newName}`);
     }
     
-
+    // find the current user 
     const userCredentials = await User.findById(_id);
 
     if(!userCredentials)
@@ -91,24 +92,25 @@ const changeName = asyncWrapper(async (req,res) =>
     {
         // Users can only update their names once per week
     
-        if (userCredentials.lastNameChangedAt && (Date.now() - userCredentials.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000));
+        if ((Date.now() - userCredentials.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000) && !userCredentials.newUser)
         {
             throw new BadRequestError('You can only change your name once a week.');
         }
         
+        await User.findOneAndUpdate( {_id}, {name: newName, lastNameChangedAt: Date.now(), newUser: false} , {new:true, runValidators:true} );
         
-        await User.findOneAndUpdate( {_id}, {name: newName, lastNameChangedAt: Date.now()} , {new:true, runValidators:true} );
+        
     }
     else if(OauthUser)
     {
         // Users can only update their names once per week
     
-        if (OauthUser.lastNameChangedAt && (Date.now() - OauthUser.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000))
+        if ((Date.now() - OauthUser.lastNameChangedAt < 7 * 24 * 60 * 60 * 1000 ) && !OauthUser.newUser)
         {
             throw new BadRequestError('You can only change your name once a week.');
         }
         
-        await Oauth.findOneAndUpdate( {_id}, {name: newName, lastNameChangedAt: Date.now()} , {new:true, runValidators:true} );
+        await Oauth.findOneAndUpdate( {_id}, {name: newName, lastNameChangedAt: Date.now(), newUser: false} , {new:true, runValidators:true} );
     
     }
 
@@ -134,17 +136,39 @@ const changeSurname = asyncWrapper(async (req,res) =>
     if(!newSurname)
     {
         throw new BadRequestError('Please provide a valid surname');
-    }
+    }   
 
     const userCredentials = await User.findById(_id);
 
-    // Users can only update their surnames once per week
-    if (userCredentials.lastSurnameChangedAt && (Date.now() - userCredentials.lastSurnameChangedAt < 7 ))
+    if(!userCredentials)
     {
-        throw new BadRequestError('You can only change your surname once a week.');
+        const OauthUser = Oauth.findById(_id);
+
+        if(!OauthUser)
+        {
+            throw new UnauthenticatedError('Could not find user with provided credentials');
+        }
+    }
+    else if(userCredentials)
+    {
+        
+        // Users can only update their surnames once per week
+        if ((Date.now() - userCredentials.lastSurnameChangedAt <  7 * 24 * 60 * 60 * 1000) && !userCredentials.newUser)
+        {
+            throw new BadRequestError('You can only change your surname once a week.');
+        }
+
+        await User.findOneAndUpdate( {_id}, {surname: newSurname, lastSurnameChangedAt: Date.now(), newUser: false} , {new:true, runValidators:true} );
+    }
+    else if(OauthUser)
+    {
+        if((Date.now() - OauthUser.lastSurnameChangedAt <  7 * 24 * 60 * 60 * 1000) && !OauthUser.newUser)
+        {
+            throw new BadRequestError("You can only change your surname once a week.");
+        }
+        await OauthUser.findOneAndUpdate({_id}, {surname: newSurname, lastSurnameChangedAt: Date.now(), newUser: false} , {new:true, runValidators:true});
     }
     
-    await User.findOneAndUpdate( {_id}, {surname: newSurname, lastSurnameChangedAt: Date.now()} , {new:true, runValidators:true} );
 
     res.status(StatusCodes.OK).json({user:{msg:'Surname was updated successfully'}});
 });
@@ -168,10 +192,6 @@ const deleteUser = asyncWrapper(async (req,res) =>
     }
     const resumes = await Resume.deleteMany({createdBy: _id});
 
-    if(!resumes)
-    {
-        throw new UnauthenticatedError('Could not delete user');
-    }
 
     res.status(StatusCodes.OK).json({user:{msg: 'User was deleted successfully'}});
 

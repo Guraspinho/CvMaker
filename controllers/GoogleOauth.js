@@ -2,7 +2,7 @@ const {OAuth2Client} = require('google-auth-library');
 const {UnauthenticatedError, BadRequestError, NotFoundError} = require("../errors/everyError");
 const { StatusCodes } = require("http-status-codes");
 const asyncWrapper = require('../middlewares/asyncWrapper');
-const Oauth = require('../models/Oauth');
+const Oauth = require('../models/GoogleUsers');
 const xssFilters = require('xss-filters');
 
 // import database models

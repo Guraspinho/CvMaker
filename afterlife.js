@@ -103,7 +103,7 @@ TODO: 'do not forget to clean up the code later on'
 TODO: 'create a pdf files for resumes' 
 
 TODO: 'delete photos also when deleting a user'
-TODO: 'sign the urls as the user logs in'
+TODO: 'sign the urls as the user logs in +'
 
 TODO: 'There are problems with creating a resume, fix it later on'
 TODO: 'Text extraction -'
@@ -112,3 +112,5 @@ TODO: 'add styles to sent emails +'
 TODO: 'logout functionality +'
 TODO: 'add subscription functionality +'
 TODO: 'when confirming email, redirect to login page +' 
+
+TODO: "limit users to be able to create only certain amount of resumes"

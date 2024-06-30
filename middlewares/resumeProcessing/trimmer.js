@@ -1,6 +1,8 @@
 const detectLocation = require('./addressDetector');
 const detectLanguages = require('./languageDetector');
 const detectProgLangs = require('./ProgLangDetector');
+const detectName = require('./nameDetector');
+const detectSurname = require('./surnameDetector');
 
 
 function tokenize(text)
@@ -16,9 +18,8 @@ function tokenize(text)
 
 
 
-async function extractText(resumeText, user)
+async function extractText(resumeText)
 {
-    const {name,lastname} = user;
     
     const keywords =
     {
@@ -97,8 +98,9 @@ async function extractText(resumeText, user)
         info.skills = programmingLanguages;
     
         // add names and surnames
-        info.personalDetails.name = name;
-        info.personalDetails.surname = lastname;
+        info.personalDetails.name = detectName(tokens);
+        info.personalDetails.surname = detectSurname(tokens);
+    
     
         // const addressLines = [];
 
@@ -169,19 +171,20 @@ async function extractText(resumeText, user)
     
         
             
+             
             if (Array.isArray(links))
             {
-                info['links'] = (info['links'] || []).concat(links);
+                info['links'] = [...(Array.isArray(info['links']) ? info['links'] : []), ...links];
             }
             
             if (Array.isArray(githubLinks))
             {
-                info['links'] = (info['links'] || []).concat(githubLinks);
+                info['links'] = [...(Array.isArray(info['links']) ? info['links'] : []), ...githubLinks];
             }
             
             if (Array.isArray(linkedinLinks))
             {
-                info['links'] = (info['links'] || []).concat(linkedinLinks);
+                info['links'] = [...(Array.isArray(info['links']) ? info['links'] : []), ...linkedinLinks];
             }
         }
     
@@ -201,10 +204,10 @@ async function extractText(resumeText, user)
             info['personalDetails']['address'] = info['address'];
             delete info['address'];
         }
-    
+        
         Object.keys(info).forEach(key =>
         {
-            if (typeof info[key] === 'object' && info[key] !== null)
+            if (typeof info[key] === 'object')
             {
                 Object.keys(info[key]).forEach(subKey =>
                 {
@@ -215,14 +218,15 @@ async function extractText(resumeText, user)
                 });
             }
         });
-    
+        
         const filteredInfo = {};
+
         Object.keys(info).forEach(key =>
         {
             if (typeof info[key] === 'object')
             {
                 filteredInfo[key] = {};
-                Object.keys(info[key]).forEach(subKey =>    
+                Object.keys(info[key]).forEach(subKey =>
                 {
                     if (info[key][subKey] !== "")
                     {
@@ -236,7 +240,7 @@ async function extractText(resumeText, user)
     }
     catch (error)
     {
-        console.log(`Error ${error}`);
+        console.log(error);
         throw new Error("An error occured while processing a resume");
     }
  

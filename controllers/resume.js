@@ -38,11 +38,9 @@ const uploadYourResume = asyncWrapper(async (req,res) =>
         data = result.value;
     }
     const lowerCaseData = data.toLocaleLowerCase();
-    
-    const _id = req.user.userId;
-    const user = await User.findById({_id});
-    
-    const info = await extractText(lowerCaseData, user);
+
+    // format the resume
+    const info = await extractText(lowerCaseData);
     
     
     res.status(StatusCodes.OK).json({user:{msg: 'Resume was uploaded successfully'}, info});

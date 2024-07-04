@@ -102,7 +102,7 @@ TODO: 'update name and surname change to once per week later on +'
 TODO: 'do not forget to clean up the code later on'
 TODO: 'create a pdf files for resumes' 
 
-TODO: 'delete photos also when deleting a user'
+TODO: 'delete photos also when deleting a user +'
 TODO: 'sign the urls as the user logs in +'
 
 TODO: 'There are problems with creating a resume, fix it later on'

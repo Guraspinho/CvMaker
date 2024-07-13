@@ -11,6 +11,13 @@ const uploadPhoto = asyncWrapper(async (req,res) =>
     const _id = req.params.id;
     const createdBy = req.user.userId;
 
+    const resume = await Resume.findOne({_id,createdBy});
+
+    if(!resume)
+    {
+        throw new NotFoundError("could not find the resume");
+    }
+
 
   
     if(!req.files || req.files.length === 0)
@@ -25,14 +32,13 @@ const uploadPhoto = asyncWrapper(async (req,res) =>
 
     const signedUrl = await getSignedUrlFunction(Key);
 
-    // store the key and signed URL in a db
-    const resume = await Resume.findOneAndUpdate({_id, createdBy},{photoURL: signedUrl, photoKey: Key},{new: true, runValidators: true});
-    
-    if(!resume)
-    {
-        throw new NotFoundError(`Could not find resumes with ID: ${_id}`);
-    }
-    
+    console.log(signedUrl);
+
+    resume.photoURL = signedUrl;
+    resume.photoKey = Key;
+
+    await resume.save();
+
 
     res.status(StatusCodes.CREATED).json({user:{msg:'File was uploaded successfully'}})
 });

@@ -72,8 +72,8 @@ const uploadCommand = (file) =>
 
 const s3Operation = async (Key, command) => {
     const s3client = new S3Client({
-        region: 'nyc3',
-        endpoint: 'https://nyc3.digitaloceanspaces.com',
+        region: 'fra1',
+        endpoint: 'https://fra1.digitaloceanspaces.com',
         credentials: {
             accessKeyId: process.env.SPACES_ACCESS_KEY,
             secretAccessKey: process.env.SPACES_SECRET_KEY
@@ -89,8 +89,8 @@ const s3Operation = async (Key, command) => {
 const getSignedUrlFunction = async (Key) =>
 {
     const s3client = new S3Client({
-        region: 'nyc3',
-        endpoint: 'https://nyc3.digitaloceanspaces.com',
+        region: 'fra1',
+        endpoint: 'https://fra1.digitaloceanspaces.com',
         credentials: {
             accessKeyId: process.env.SPACES_ACCESS_KEY,
             secretAccessKey: process.env.SPACES_SECRET_KEY
@@ -106,33 +106,35 @@ const getSignedUrlFunction = async (Key) =>
     return signedUrl;
 }
 
+
 // sign multiple urls
-const getSignedUrls = async (Keys) =>
+const signMultipleUrls = async (Keys) =>
 {
+
     const s3client = new S3Client({
-        region: 'nyc3',
-        endpoint: 'https://nyc3.digitaloceanspaces.com',
+        region: 'fra1',
+        endpoint: 'https://fra1.digitaloceanspaces.com',
         credentials: {
             accessKeyId: process.env.SPACES_ACCESS_KEY,
             secretAccessKey: process.env.SPACES_SECRET_KEY
         }
     });
 
-    const signedUrls = [];
-
-    for (const Key of Keys)
+    // Use Promise.all to handle all promises in parallel
+    const signedUrlsPromises = Keys.map(Key =>
     {
         const command = new GetObjectCommand({
             Bucket: process.env.SPACES_BUCKET_NAME,
             Key
         });
 
-        const signedUrl = await getSignedUrl(s3client, command, { expiresIn: 3600 });
-        signedUrls.push(signedUrl);
-    }
+        return getSignedUrl(s3client, command, { expiresIn: 7200 });
+    });
 
+
+    const signedUrls = await Promise.all(signedUrlsPromises);
     return signedUrls;
-}
+};
 
 
 module.exports =
@@ -141,7 +143,7 @@ module.exports =
     uploadCommand,
     s3Operation,
     getSignedUrlFunction,
-    getSignedUrls,
+    signMultipleUrls,
     upload,
     photo
 }

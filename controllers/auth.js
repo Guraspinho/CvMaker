@@ -1,5 +1,5 @@
 const {UnauthenticatedError, BadRequestError, NotFoundError} = require("../errors/everyError");
-const { getSignedUrls } = require('../utils/multer');
+const { signMultipleUrls } = require('../utils/multer');
 const { sendEmail, sendContactEmail, sendPasswordResetEmail } = require("../utils/sendEmails");
 const { StatusCodes } = require("http-status-codes");
 const jwt = require("jsonwebtoken");
@@ -163,7 +163,7 @@ const login = asyncWrapper(async (req, res) =>
             keys.push(resume.photoKey);
         }
     });
-    const urls = await getSignedUrls(keys);
+    const urls = await signMultipleUrls(keys);
 
     // extract name and surname
     const {name, surname} = userCredentials;

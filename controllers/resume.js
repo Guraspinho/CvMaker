@@ -9,6 +9,7 @@ const Resume = require('../models/resumes');
 const User = require('../models/users');
 
 const sanitizeResume = require('../middlewares/inputSanitizer');
+const xssFilters = require('xss-filters');
 const {convertToPdf} = require('../utils/puppeteer');
 const {extractText}  = require('../middlewares/resumeProcessing/trimmer');
 
@@ -16,6 +17,8 @@ const {extractText}  = require('../middlewares/resumeProcessing/trimmer');
 
 const uploadYourResume = asyncWrapper(async (req,res) =>
 {
+    const resumeName = xssFilters.inHTMLData(req.body.resumeName);
+    
     // sanitize user input
     if(!req.files || req.files.length === 0)
     {
@@ -41,6 +44,7 @@ const uploadYourResume = asyncWrapper(async (req,res) =>
 
     // format the resume
     const info = await extractText(lowerCaseData);
+    info['resumeName'] = resumeName;
     
     
     res.status(StatusCodes.OK).json({user:{msg: 'Resume was uploaded successfully'}, info});

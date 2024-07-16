@@ -65,7 +65,7 @@ async function extractText(resumeText) {
             projects: true,
             skills: true,
             languages: true,
-            color: ''
+            color: '#799acc'
         };
 
         // Initialize education section
@@ -123,6 +123,9 @@ async function extractText(resumeText) {
                 singleskill: ""
             }
         ]
+
+        info['photoUrl'] = "";
+        info['resumename'] = ""; 
 
         // Regex to match email addresses and phone numbers, github and linkedin accounts
         const emailRegex = /\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9.-]+\.)+(?:com|org|net|edu|gov|mil|us|uk|au|ca|de|fr|it|ru|cn|in|br|jp|ge)\b/g;

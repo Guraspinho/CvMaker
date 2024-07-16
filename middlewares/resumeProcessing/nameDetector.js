@@ -18,7 +18,7 @@ function detectName(text) {
         "sandro", "sashiko", "shorena", "shota", "siko", "sopo", "tamta", "tako", "tamar", 
         "tamara", "tamuna", "tata", "tazo", "teimuraz", "teona", "tinatin", "tina", "taliko", 
         "tornike", "tsotne", "ugro", "vano", "vakho", "vakhtang", "zaira", "zaza", 
-        "zurab", "zuriko", "zura", "zviad", "zosime"
+        "zurab", "zuriko", "zura", "zviad", "zosime", "ika"
     ]);
 
     const namesEn = new Set([
@@ -37,7 +37,7 @@ function detectName(text) {
         "საშიკო", "შორენა", "შოთა", "სიკო", "სოფო", "თამთა", "თაკო", "თამარ", "თამარა",
         "თამუნა", "თატა", "თაზო", "თეიმურაზი", "თეონა", "თინათინი", "თინა", "ტალიკო",
         "ტორნიკე", "ცოტნე", "უგრო", "ვანო", "ვახო", "ვახტანგი", "ზაირა", "ზაზა",
-        "ზურაბი", "ზურიკო", "ზურა", "ზვიადი", "ზოსიმე"
+        "ზურაბი", "ზურიკო", "ზურა", "ზვიადი", "ზოსიმე", "იკა"
     ]);
 
     for (let token of text) {

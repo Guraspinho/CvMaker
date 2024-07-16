@@ -36,7 +36,7 @@ function detectSurname(text)
         "ჭანტურია", "ჭარელი", "ჭეიშვილი", "ჭელიძე", "ჭიკაიძე", "ჭრელაშვილი",
         "ჭუმბურიძე", "ხალვაში", "ხარატიშვილი", "ხარებაშვილი", "ხაზარაძე", "ხერხეულიძე",
         "ხიზანიშვილი", "ხოჯავა", "ხოფერია", "ხუციშვილი", "ჯავახაძე", "ჯაოშვილი",
-        "ჯაფარიძე", "ჯიბლაძე", "ჯინჯოლავა", "ჯუღაშვილი", "ჯღამაძე"
+        "ჯაფარიძე", "ჯიბლაძე", "ჯინჯოლავა", "ჯუღაშვილი", "ჯღამაძე", "წულაია"
       ]);
 
       const surnamesEn = new Set ([
@@ -46,7 +46,7 @@ function detectSurname(text)
         "gabunia", "gagnidze", "gagua", "gamrekelashvili", "gansvia", "gelashvili",
         "gvelashvili", "giviashvili", "gigashvili", "gigauri", "giginashvili", "gigolashvili",
         "gogiberidze", "gogishvili", "gogrishiani","guraspashvili","gogeishvili","gurasashvili",
-        "gorelshvili", "gotsiridze", "grigalashvili",
+        "gorelshvili", "gotsiridze", "grigalashvili", "tsulaia",
         "gugushvili", "gulashvili", "gurgenidze", "davitashvili", "darchashvili", "devdariani",
         "dvalishvili", "eisiani", "tarkhan-mouravi", "teladze", "temurashvili", "todua",
         "tomashvili", "toradze", "iakobashvili", "igorashvili", "ivanashvili", "iveriashvili",

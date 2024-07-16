@@ -20,7 +20,7 @@ async function extractText(resumeText) {
             "professional experience", "work experience", "professional background", "professional history", "employment history", "employment experience", "experiences",
             "პროფესიული გამოცდილება", "სამუშაო გამოცდილება", "გამოცდილება",
         ],
-        "education": ["education", "განათლება"],
+        "education": ["education", "განათლება", "bachelor's", "master's", "phd", "doctorate"],
         "certifications": ["certifications", "სერთიფიკატები"],
         "projects": ["projects", "პროექტები"],
         "skills": [
@@ -33,13 +33,23 @@ async function extractText(resumeText) {
             "პროფესიული რეზიუმე", "კარიერის ობიექტივი", "კარიერის რეზიუმე", "კარიერის პროფილი", "ინტერესები", "ობიექტივი", "პროფილი",
         ],
         "links": ["links", "ლინკები"],
+        "profession": ["profession", "პროფესია"],
+        "website": ["website", "ვებგვერდი"]
     };
 
     try {
         const info = {};
 
         // Create a new personalDetails object
-        info['personalDetails'] = {};
+        info['personalDetails'] = {
+            name: "",
+            lastname: "",
+            email: "",
+            phone: "",
+            address: "",
+            website: "",
+            profession: ""
+        };
         info['languages'] = [];
         info['skills'] = [];
         info['visibility'] = {
@@ -57,6 +67,62 @@ async function extractText(resumeText) {
             languages: true,
             color: ''
         };
+
+        // Initialize education section
+        info['education'] = [{
+            degree: "",
+            school: "",
+            startDate: "",
+            endDate: "",
+            degreeDescription: []
+        }];
+
+        // Initialize work experience section
+        info['workExperience'] = [{
+            companyName: "",
+            jobTitle: "",
+            startDate: "",
+            endDate: "",
+            jobDescription: []
+        }];
+
+        // Initialize links section
+        info['links'] = [{
+            title: "",
+            url: ""
+        }];
+
+        // Initialize certifications section
+        info['certifications'] = [{
+            name: "",
+            organization: "",
+            date: "",
+            email: "",
+            number: ""
+        }];
+
+        // Initialize projects section
+        info['projects'] = [{
+            name: "",
+            description: "",
+            link: ""
+        }];
+
+        // languagesSection2
+        info['languagesSection2'] = 
+        [
+            {
+                singleLanguage: ""
+            }
+        ]
+
+        // skillsSection2
+        info['skillsSection2'] = 
+        [
+            {
+                singleskill: ""
+            }
+        ]
 
         // Regex to match email addresses and phone numbers, github and linkedin accounts
         const emailRegex = /\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9.-]+\.)+(?:com|org|net|edu|gov|mil|us|uk|au|ca|de|fr|it|ru|cn|in|br|jp|ge)\b/g;
@@ -160,6 +226,71 @@ async function extractText(resumeText) {
             }
         }
 
+        // Add education details if found
+        const educationDetails = {
+            degree: "",
+            school: "",
+            startDate: "",
+            endDate: "",
+            degreeDescription: []
+        };
+        if (currentCategory === "education" && currentKeyword) {
+            educationDetails.degree = currentKeyword;
+            educationDetails.degreeDescription.push({ descriptionText: info[currentCategory][currentKeyword] });
+        }
+        info.education = [educationDetails];
+
+        // Add work experience details if found
+        const workExperienceDetails = {
+            companyName: "",
+            jobTitle: "",
+            startDate: "",
+            endDate: "",
+            jobDescription: []
+        };
+        if (currentCategory === "workExperience" && currentKeyword) {
+            workExperienceDetails.jobTitle = currentKeyword;
+            workExperienceDetails.jobDescription.push({ descriptionText: info[currentCategory][currentKeyword] });
+        }
+        info.workExperience = [workExperienceDetails];
+
+        // Add links details if found
+        const linksDetails = {
+            title: "",
+            url: ""
+        };
+        if (currentCategory === "links" && currentKeyword) {
+            linksDetails.title = currentKeyword;
+            linksDetails.url = info[currentCategory][currentKeyword];
+        }
+        info.links = [linksDetails];
+
+        // Add certifications details if found
+        const certificationsDetails = {
+            name: "",
+            organization: "",
+            date: "",
+            email: "",
+            number: ""
+        };
+        if (currentCategory === "certifications" && currentKeyword) {
+            certificationsDetails.name = currentKeyword;
+            certificationsDetails.organization = info[currentCategory][currentKeyword];
+        }
+        info.certifications = [certificationsDetails];
+
+        // Add projects details if found
+        const projectsDetails = {
+            name: "",
+            description: "",
+            link: ""
+        };
+        if (currentCategory === "projects" && currentKeyword) {
+            projectsDetails.name = currentKeyword;
+            projectsDetails.description = info[currentCategory][currentKeyword];
+        }
+        info.projects = [projectsDetails];
+
         if (info['phoneNumbers'] && info['phoneNumbers'].length > 0) {
             info['personalDetails']['phone'] = info['phoneNumbers'][0];
             delete info['phoneNumbers'];
@@ -173,7 +304,7 @@ async function extractText(resumeText) {
         return info;
     } catch (error) {
         console.log(error);
-        throw new Error("An error occured while processing a resume");
+        throw new Error("An error occurred while processing a resume");
     }
 }
 

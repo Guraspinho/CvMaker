@@ -84,37 +84,8 @@ const resumeSchema = new mongoose.Schema(
             type: String,
             default: 'default.jpg',
         },
-        visibility:
-        {
-            photo: {type: Boolean, default: true},
-            address: {type: Boolean, default: true},
-            email: {type: Boolean, default: true},
-            phone: {type: Boolean, default: true},
-            workExperience: {type: Boolean, default: true},
-            summary: {type: Boolean, default: true},
-            education: {type: Boolean, default: true},
-            certifications: {type: Boolean, default: false},
-            links: {type: Boolean, default: true},
-            projects: {type: Boolean, default: true},
-            skills: {type: Boolean, default: true},
-            languages: {type: Boolean, default: true},
-            color: {type: String, default: ''},
-        }, 
         skills: [String],
-        skillsSection2:
-        [
-            {
-               singleSkill: String,
-            }
-        ], 
         languages: [String],
-        languagesSection2:
-        [
-            {
-                singleLanguage: String,
-            }
-        ],
-        pdfURL: String,
         summary: String
     },
     {timestamps: true});

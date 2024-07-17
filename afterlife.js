@@ -94,8 +94,3 @@ const start = async () =>
 start();
 
 // before deployment
-
-
-TODO: 'create a pdf files for resumes' 
-TODO: 'There are problems with creating a resume, fix it later on'
-TODO: "limit users to be able to create only certain amount of resumes"

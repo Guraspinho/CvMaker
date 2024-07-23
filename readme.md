@@ -1,4 +1,3 @@
-## Project Name:
 
 ### CvMaker
 
@@ -10,6 +9,14 @@
 
 - CvMaker is a easy to use website for creating professional resumes. There are 6 main templates which can be filled as user wishes so.
 users are also able to upload their previous resumes which will be formatted and put right into cleaner, much better looking templates.
+
+## Stack:
+1. Node.js
+2. Express.js
+3. MongoDB
+4. Docker
+
+## Architecture type - Monolithic - REST
 
 ### Structure of a project
 
@@ -48,3 +55,4 @@ files and formats the as nice simple object. A repo for only resume proccesing a
 ### Cloud
 - The project uses docker in order to work seamlesly on any os.
 - The Digitalocean Spaces (can be considered as AWS S3 bucket) is used for storing users' photos.
+- Website also uses Google Oauth2.0 protocol which helps users sign in easily using their Google accounts(GCP).

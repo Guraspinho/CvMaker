@@ -1,3 +1,8 @@
+// This code is licensed under the term =s of the Propertary License.
+// Unauthorized use is prohibited.
+// See the LICENSE file for more details.
+
+
 const express = require("express");
 const connectDB = require("./db/mongo");
 require("dotenv").config();

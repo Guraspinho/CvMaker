@@ -8,7 +8,7 @@
 ## Description
 
 - CvMaker is a easy to use website for creating professional resumes. There are 6 main templates which can be filled as user wishes so.
-users are also able to upload their previous resumes which will be formatted and put right into cleaner, much better looking templates.
+users are able to upload their previous resumes (Word or PDF files) which will be formatted ( using the algorithm that i wrote ) and put right into cleaner, much better looking templates.
 
 ## Stack:
 1. Node.js
@@ -18,7 +18,7 @@ users are also able to upload their previous resumes which will be formatted and
 
 ## Architecture type - Monolithic - REST
 
-### Structure of a project
+## Structure of a project
 
 - main file: afterlife.js
 
@@ -28,7 +28,7 @@ users are also able to upload their previous resumes which will be formatted and
 - routes: Stores files for routes.
 - utils: stores files such as node mailer, and others
 
-### A resume Processing algorithm
+## A resume Processing algorithm
 
 - In middlewares folder, there is resumeProcessing folder which is created to process and extract information from resumes, It reads pdf and word
 files and formats the as nice simple object. A repo for only resume proccesing algorithm is in this repo: repoName
@@ -44,15 +44,15 @@ files and formats the as nice simple object. A repo for only resume proccesing a
 - The server uses other more essential packages and practises for security such as cors, helpet, hpp and etc.
 
 
-### Error handling
+## Error handling
 - The server uses custom error handling classes for handling different types of errors, such as: Bad Request, Not Found and etc.
 
 
-### Subscription plan and payment
+## Subscription plan and payment
 - Users are able to buy subscription which is possible by Bank Of Georgia payment API.
 
 
-### Cloud
+## Cloud
 - The project uses docker in order to work seamlesly on any os.
 - The Digitalocean Spaces (can be considered as AWS S3 bucket) is used for storing users' photos.
 - Website also uses Google Oauth2.0 protocol which helps users sign in easily using their Google accounts(GCP).
